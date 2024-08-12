@@ -1,0 +1,137 @@
+﻿@model DatabasAccess.StudentPromoteTable
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>StudentPromoteTable</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentID, "StudentID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("StudentID", null, htmlAttributes: new { @class = "form-control", @id = "StudentID" })
+                @Html.ValidationMessageFor(model => model.StudentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassID, "ClassID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ClassID", null, htmlAttributes: new { @class = "form-control", @id = "ClassID" })
+                @Html.ValidationMessageFor(model => model.ClassID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProgramSessionID, "ProgramSessionID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("ProgramSessionID", null, htmlAttributes: new { @class = "form-control", @id = "ProgramSessionID" })
+                @Html.ValidationMessageFor(model => model.ProgramSessionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PromoteDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PromoteDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PromoteDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AnnualFee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AnnualFee, new { htmlAttributes = new { @class = "form-control", @id = "AnnualFee" } })
+                @Html.ValidationMessageFor(model => model.AnnualFee, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsAcitve, "Promote Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsAcitve)
+                    @Html.ValidationMessageFor(model => model.IsAcitve, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsSubmit, "Promote Fee Status", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsSubmit)
+                    @Html.ValidationMessageFor(model => model.IsSubmit, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SectionID, "SectionID", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("SectionID", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SectionID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function () {
+ $('#StudentID').change(function () {
+        $('#ClassID').html('');
+        $.ajax({
+            url: '@Url.Action("GetPromoteClsList", "StudentPromoteTables")',
+            type: 'GET',
+            data: { sid: $(this).val() },
+            dataType: 'json',
+            success: function (response) {
+                if (response.data && response.data.length > 0) {
+                    for (var i = 0; i < response.data.length; i++) {
+                        $('#ClassID').append("<option value=" + response.data[i].ClassID + ">" + response.data[i].ClassName + "</option>");
+                    }
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+
+   $('#ProgramSessionID').change(function () {
+    $.ajax({
+        url: '@Url.Action("GetAnnulFee", "StudentPromoteTables")',
+        type: 'GET',
+        data: { sid: $(this).val() },
+        dataType: 'json',
+        success: function (response) {
+            if (response.fees !== null) {
+                $('#AnnualFee').val(response.fees);
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+});
+});
+</script>

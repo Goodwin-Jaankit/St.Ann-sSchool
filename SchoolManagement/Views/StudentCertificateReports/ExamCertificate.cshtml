@@ -1,0 +1,168 @@
+﻿@model IEnumerable<DatabasAccess.ExamMarksTable>
+@using SchoolManagement.Models;
+@{
+    Layout = null;
+
+    // Calculate total marks and obtained marks
+    var totalMarks = Model.Sum(m => m.TotalMarks);
+    var obtainedMarks = Model.Sum(m => m.ObtainMarks);
+    var overallPercentage = totalMarks > 0 ? (obtainedMarks / (double)totalMarks) * 100 : 0;
+
+    // Retrieve student ID for S.No
+    var studentID = Model.FirstOrDefault()?.StudentTable.StudentID;
+    var studentPromoteID = ViewBag.StudentPromoteID;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Report Certificate</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        .certificate-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .certificate-header img {
+            margin: 20px 0;
+        }
+
+        .certificate-body {
+            margin-top: 20px;
+        }
+
+        .certificate-footer {
+            margin-top: 40px;
+        }
+
+        @@media print {
+            .btn, .navbar, .footer, h2 {
+                display: none;
+            }
+
+            .certificate-container {
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .certificate-header, .certificate-body, .certificate-footer {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("ExamCertificate", "StudentCertificateReports", FormMethod.Post, new { @class = "form-horizontal user", role = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label>Select Exam</label>
+                <div class="col-md-10">
+                    @Html.DropDownList("ExamID", null, htmlAttributes: new { @class = "form-control", @id = "examid", name = "examid", @required = "required" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Enter Class Promoted Id</label>
+                <input type="text" class="form-control form-control-user" id="promoteid" name="promoteid" placeholder="promoteid">
+            </div>
+
+            <input type="submit" value="Get Report" class="btn btn-primary btn-user btn-block" />
+            <hr>
+        }
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="certificate-container">
+                <div class="certificate-header text-center">
+                    <h1><b>St. Ann's Matric Higher Secondary School</b></h1>
+                    <img src="~/Content/Admin_Template/img/school_logo.png" height="200" width="220" alt="School Logo" />
+                    <p>Tirunelveli District Panagudi. Cell: 0321-9113267</p>
+                    <p>Affiliated With Matric standard, TN.</p>
+                    <h2><b>Exam Report Certificate</b></h2>
+                    <span class="float-left"><b>S.No @studentPromoteID</b></span>
+                </div>
+
+                <div class="certificate-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Admission No:</b> @studentID</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p><b>Date:</b> @DateTime.Now.ToString("MM/dd/yyyy")</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+
+                    <p>
+                        This is to certify that <b>@Model.First().StudentTable.Name</b>,
+                        @(Model.First().StudentTable.Gender == "Female" ? "daughter" : "son") of <b>Mr. @Model.First().StudentTable.FatherName</b>,
+                        has appeared in the <b>@Model.First().ExamTable.Title</b> exam conducted by <b>St. Ann's Matric Higher Secondary School</b>.
+                    </p>
+
+                    <p>Below is the detailed marks report:</p>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Subject</th>
+                            <th>Total Marks</th>
+                            <th>Obtained Marks</th>
+                            <th>Remarks</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ClassSubjectTable.Name</td>
+                                <td>@item.TotalMarks</td>
+                                <td>@item.ObtainMarks</td>
+                                <td>
+                                    @(item.ObtainMarks >= (item.TotalMarks * 0.5) ? "Pass" : "Fail")
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><b>Total Obtained Marks:</b> @obtainedMarks</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p><b>Overall Percentage:</b> @overallPercentage.ToString("0.00")%</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="certificate-footer">
+                    <div class="row">
+                        <div class="col-md-6 text-left">
+                            <p>______________________</p>
+                            <p>Prepared by</p>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <p>______________________</p>
+                            <p>Principal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/moment.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+</body>
+</html>

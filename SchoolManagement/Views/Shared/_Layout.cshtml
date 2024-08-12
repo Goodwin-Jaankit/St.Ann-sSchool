@@ -1,0 +1,502 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    @*<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <meta charset="utf-8">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/content/Admin_Template/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/content/Admin_Template/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="~/content/Admin_Template/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+</head>
+<body id="page-top">
+    @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("User Types", "Index", "UserTypeTables", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("All Users", "Index", "UserTables", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div>
+
+                    <img class="img-profile" style="width:40px;height:40px" src="~/Content/Admin_Template/img/[removal.ai]_493e5588-fb14-42b7-922e-899282de34ab-screenshot-2024-07-31-124123.png" />
+
+                </div>
+                <div class="sidebar-brand-text mx-3"><sup>@Session["UserName"]</sup></div>
+                <div><sub><img class="img-profile rounded-circle" style="width:40px;height:40px" src="@Session["Photo"]" alt="User Photo"></sub></div>
+            </a>
+          
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Student's Registration
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudents" aria-expanded="true" aria-controls="collapseStudents">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Student's</span>
+                </a>
+                <div id="collapseStudents" class="collapse" aria-labelledby="headingStudents" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Studence Registration:</h6>
+                        @Html.ActionLink("New Registration", "Create", "StudentTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Students", "Index", "StudentTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Promotion:</h6>
+                        @Html.ActionLink("Student Promote", "Index", "StudentPromoteTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Fee's':</h6>
+                        @Html.ActionLink("Submit Tution Fee", "Create", "SubmissionFeeTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Tution Fee", "Index", "SubmissionFeeTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Annual Fee", "Index", "AnnualTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Attendance:</h6>
+                        @Html.ActionLink("Add Student attendance", "Create", "AttendanceTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Student attendance", "Index", "AttendanceTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Attendance:</h6>
+                        @Html.ActionLink("Add Student attendance", "LeavingCertificate", "StudentCertificateReports", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Student attendance", "Index", "ProvisionalCertificate", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Student attendance", "Index", "StudentCertificateReports", null, new { @class = "collapse-item" })
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Charts -->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Staff Registration
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEmployee" aria-expanded="true" aria-controls="collapseEmployee">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Employee's</span>
+                </a>
+                <div id="collapseEmployee" class="collapse" aria-labelledby="headingEmployee" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Staff Registration:</h6>
+                        @Html.ActionLink("Staff", "Index", "StaffTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Staff Attendance:</h6>
+                        @Html.ActionLink("Staff attendance", "Index", "StaffAttendanceTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Staff Salary", "Index", "EmployeeSalaryTables", null, new { @class = "collapse-item" })
+
+                    </div>
+                </div>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            @{
+                int usertypeid = Convert.ToInt32(Session["UserTypeID"]);
+
+                if (usertypeid == 1 || usertypeid == 2)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                            <i class="fas fa-fw fa-cog"></i>
+                            <span>User Management</span>
+                        </a>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Custom Configuration:</h6>
+
+                                @Html.ActionLink("User Types", "Index", "UserTypeTables", null, new { @class = "collapse-item" })
+                                @Html.ActionLink("Users", "Index", "UserTables", null, new { @class = "collapse-item" })
+
+                            </div>
+                        </div>
+                    </li>
+                }
+            }
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Confuguration</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Confuguration:</h6>
+                        @Html.ActionLink("Session", "Index", "SessionTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Subjects", "Index", "SubjectTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Programes", "Index", "ProgrameTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Designation", "Index", "DesignationTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Annual Fee/Promote Fee", "Index", "AnnualTables", null, new { @class = "collapse-item" })
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSession" aria-expanded="true" aria-controls="collapseSession">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Session's</span>
+                </a>
+                <div id="collapseSession" class="collapse" aria-labelledby="headingSession" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Confuguration:</h6>
+                        @Html.ActionLink("Session", "Index", "SessionTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Program setting", "Index", "ProgrameSessionTables", null, new { @class = "collapse-item" })
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClass" aria-expanded="true" aria-controls="collapseClass">
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Class</span>
+                </a>
+                <div id="collapseClass" class="collapse" aria-labelledby="headingClass" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Confuguration:</h6>
+                        @Html.ActionLink("Class", "Index", "ClassTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Class setting", "Index", "ClassSubjectTables", null, new { @class = "collapse-item" })
+
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Exam
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Examination</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Exam Setting:</h6>
+                        @Html.ActionLink("Exam Types", "Index", "ExamTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Examination:</h6>
+                        @Html.ActionLink("Add Mark Sheet", "Index", "ExamMarksTables", null, new { @class = "collapse-item" })
+                    </div>
+                </div>
+            </li>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseevent" aria-expanded="true" aria-controls="collapseevent">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Events</span>
+                </a>
+                <div id="collapseevent" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Add Events:</h6>
+                        @Html.ActionLink("New Event", "Create", "EventTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Events:</h6>
+                        @Html.ActionLink("All Event", "Index", "EventTables", null, new { @class = "collapse-item" })
+                    </div>
+                </div>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Time Table
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTimeTable" aria-expanded="true" aria-controls="collapseTimeTable">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Time Table</span>
+                </a>
+                <div id="collapseTimeTable" class="collapse" aria-labelledby="headingTimeTable" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Time Table Setting:</h6>
+                        @Html.ActionLink("Set Time Table", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Class Wise:</h6>
+                        @Html.ActionLink("view Time Table", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+                    </div>
+                </div>
+            </li>
+
+
+
+            <!-- Nav Item - Charts -->
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Reports
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports" aria-expanded="true" aria-controls="collapseReports">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Reports</span>
+                </a>
+                <div id="collapseReports" class="collapse" aria-labelledby="headingReports" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">General Reports:</h6>
+                        @Html.ActionLink("All Students", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Annual Reports:</h6>
+                        @Html.ActionLink("Teacher Time Table", "Teacher", "TimeTableReports", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Teacher Wise Report", "TeacherWiseReport", "TimeTableReports", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Annual Reports:</h6>
+                        @Html.ActionLink("Apply Student's List", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Expense Reports:</h6>
+                        @Html.ActionLink("All Expenses", "CustomTution", "FeeReport", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Examination Reports:</h6>
+                        @Html.ActionLink("Print DMC", "PrintDMC", "ExamReports", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Attendence Reports:</h6>
+                        @Html.ActionLink("Students", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Teachers", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+
+                        <div class="collapse-divider"></div>
+                        <h6 class="collapse-header">Fee's' Reports:</h6>
+                        @Html.ActionLink("Annual Fee Report", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("Student Fee Report", "Index", "TimeTblTables", null, new { @class = "collapse-item" })
+                        @Html.ActionLink("ExamCertificate", "ExamCertificate", "StudentCertificateReports", new { id = 0 }, null) |
+                    </div>
+                </div>
+            </li>
+
+
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none">
+                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-search fa-fw"></i>
+                            </a>
+
+                        </li>
+
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"> @Session["UserName"]</span>
+                                <img class="img-profile rounded-circle" src="@Session["Photo"]" alt="User Photo">
+
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                             
+                                 
+                                    @Html.ActionLink("Change Password", "ChangePassword", "Home", null, new {@class= "dropdown-item fas fa-sign-out-alt fa-sm fa-fw mr-2 text-dark-400" })
+                            
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Made by Goodwin</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    @Html.ActionLink("Logout","Logout","Home",null,new { @class = "btn btn-primary" })
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/content/Admin_Template/vendor/jquery/jquery.min.js"></script>
+    <script src="~/content/Admin_Template/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/content/Admin_Template/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/content/Admin_Template/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="~/content/Admin_Template/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/content/Admin_Template/js/demo/chart-area-demo.js"></script>
+    <script src="~/content/Admin_Template/js/demo/chart-pie-demo.js"></script>
+
+
+    <!-- Page level custom scripts -->
+    <script src="~/content/Admin_Template/js/demo/datatables-demo.js"></script>
+
+
+    <!-- Page level plugins -->
+    <script src="~/content/Admin_Template/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/content/Admin_Template/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+
+
+</body>
+</html>

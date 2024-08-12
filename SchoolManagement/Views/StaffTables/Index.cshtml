@@ -1,0 +1,89 @@
+﻿@model IEnumerable<DatabasAccess.StaffTable>
+
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+<!-- DataTables Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Users</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            Full Name
+                        </th>
+                        <th>
+                            ContactNo
+                        </th>
+                        <th>
+                            BasicSalary
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Photo
+                        </th>
+                        <th>
+                            Status
+                        </th>
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ContactNo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BasicSalary)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Address)
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.Photo))
+                                {
+                                    <img src="@Url.Content(item.Photo)" alt="Image" style="width:100px;height:150px;max-width:100%;height:auto;" />
+                                }
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+
+                            <td>
+                                @if (item.Designation_ID == 1 || item.Designation_ID == 2 || item.Designation_ID == 3 || item.Designation_ID == 4 || item.Designation_ID == 5 || item.Designation_ID == 6)
+                                {
+                                    @Html.ActionLink("Teacher Wise Report", "Teacher", "TimeTableReports", new { id = item.StaffID }, null)
+                                    @: |
+                                }
+                                @Html.ActionLink("Staff Attendance", "StaffAttendance", "TimeTableReports", new { id = item.StaffID },null) |
+                                @Html.ActionLink("Edit", "Edit", new { id = item.StaffID }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.StaffID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = item.StaffID }) |
+                                @Html.ActionLink("Add Resume", "CheckCV", "Resume", new { id = item.StaffID }, null)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

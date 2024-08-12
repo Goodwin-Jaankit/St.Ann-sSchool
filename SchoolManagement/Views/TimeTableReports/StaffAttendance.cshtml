@@ -1,0 +1,85 @@
+﻿@model IEnumerable<DatabasAccess.StaffAttendanceTable>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery") <!-- Ensure jQuery is loaded here -->
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#printButton").on("click", function () {
+                window.print();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container body-content">
+        <button id="printButton" class="btn btn-primary">Print this page</button>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffTable.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StaffTable.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.AttendDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ComingTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ClosingTime)
+                    </th>
+                    <th>
+                        Working Hours
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffTable.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffTable.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AttendDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ComingTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClosingTime)
+                        </td>
+                        <td>
+                            @{
+                                var comingTime = item.ComingTime ?? TimeSpan.Zero;
+                                var closingTime = item.ClosingTime ?? TimeSpan.Zero;
+                                var workingHours = closingTime - comingTime;
+                                string formattedHours = string.Format("{0:D2}:{1:D2}", workingHours.Hours, workingHours.Minutes);
+                                @formattedHours
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

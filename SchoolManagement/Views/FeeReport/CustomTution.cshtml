@@ -1,0 +1,98 @@
+﻿@model IEnumerable<DatabasAccess.SubmissionFeeTable>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">
+        @using (Html.BeginForm("CustomTution", "FeeReport", FormMethod.Post, new { @class = "form-horizontal user", role = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label class="custom-control-label">From Date</label>
+                <input type="date" class="form-control form-control-user" id="fromDate" name="fromDate" aria-describedby="emailHelp" placeholder="fromDate">
+            </div>
+            <div class="form-group">
+                <label class="custom-control-label">To Date</label>
+                <input type="date" class="form-control form-control-user" id="toDate" name="toDate" placeholder="toDate">
+            </div>
+       
+            <input type="submit" value="Login" class="btn btn-primary btn-user btn-block" />
+            <hr>
+        }
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SubmissionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FeesMonth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassTable.ClassName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProgrameTable.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentTable.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserTable.FullName)
+                </th>
+
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SubmissionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FeesMonth)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassTable.ClassName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProgrameTable.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentTable.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserTable.FullName)
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>
+</html>

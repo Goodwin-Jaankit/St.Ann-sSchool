@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DatabasAccess.TimeTblTable>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().ClassSubjectTable.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().Day)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().StartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().EndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().IsActive)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.First().UserTable.FullName)
+                </th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassSubjectTable.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Day)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserTable.FullName)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DatabasAccess.ExamMarksTable>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container body-content">
+        @using (Html.BeginForm("PrintDMC", "ExamReports", FormMethod.Post, new { @class = "form-horizontal user", role = "form", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                Select Exam
+                <div class="col-md-10">
+                    @Html.DropDownList("ExamID", null, htmlAttributes: new { @class = "form-control", @id = "examid", name = "examid", @required = "required" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="custom-control-label">Enter Class promoted Id</label>
+                <input type="text" class="form-control form-control-user" id="promoteid" name="promoteid" placeholder="promoteid">
+            </div>
+
+            <input type="submit" value="getreport" class="btn btn-primary btn-user btn-block" />
+            <hr>
+        }
+
+        <div>
+            <h3>Total Obtained Marks: @ViewBag.TotalObtainedMarks</h3>
+        </div>
+
+        <table class="table table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TotalMarks)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ObtainMarks)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExamTable.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentTable.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserTable.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ClassSubjectTable.Name)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalMarks)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ObtainMarks)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExamTable.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentTable.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserTable.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClassSubjectTable.Name)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</body>
+</html>

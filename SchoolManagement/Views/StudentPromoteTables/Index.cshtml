@@ -1,0 +1,75 @@
+﻿@model IEnumerable<DatabasAccess.StudentPromoteTable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PromoteDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnnualFee)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsAcitve)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsSubmit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ClassTable.ClassName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProgrameSessionTable.Details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SectionTable.SectionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentTable.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PromoteDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnnualFee)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsAcitve)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsSubmit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ClassTable.ClassName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProgrameSessionTable.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SectionTable.SectionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentTable.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StudentPromoteID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StudentPromoteID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StudentPromoteID })
+        </td>
+    </tr>
+}
+
+</table>
